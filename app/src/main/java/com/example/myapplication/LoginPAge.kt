@@ -13,31 +13,40 @@ class LoginPAge : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
-        var PHonenumber=""
-        var counter = 10
+
+
         var btnlogin = findViewById(R.id.btnclick) as AppCompatButton
         var phone = findViewById(R.id.phoneno) as EditText
         var forget = findViewById(R.id.forget1password) as TextView
 
-        btnlogin.setOnClickListener{
-             PHonenumber = phone.text.toString()
-
-            if (PHonenumber == "9656335898"){
-                startActivity(Intent(this@LoginPAge, DashBoard::class.java))
-                finish()
-            }else{
-                Toast.makeText(this,"Error",Toast.LENGTH_LONG).show()
-            }
+        btnlogin.setOnClickListener {
+            authorization()
         }
 
-        forget.setOnClickListener{
-            counter--
-            if (counter > 0){
-                Toast.makeText(this,"Click ${counter} times to confirm",Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(this,"there is no password just login",Toast.LENGTH_SHORT).show()
-            }
+        forget.setOnClickListener {
+            forgetpassword()
+        }
+    }
 
+    private fun forgetpassword() {
+        val counter = (1..10).random()
+        val forget = findViewById(R.id.forget1password) as TextView
+        forget.text = "click Forget PassWord ${counter} times"
+        Toast.makeText(this, "Click ${counter.toString()} times to confirm", Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    private fun authorization(){
+        var phone = findViewById(R.id.phoneno) as EditText
+
+        var PHonenumber=""
+        PHonenumber = phone.text.toString()
+
+        if (PHonenumber == "9656335898") {
+            startActivity(Intent(this@LoginPAge, DashBoard::class.java))
+            finish()
+        } else {
+            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
         }
     }
 }
